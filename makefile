@@ -61,9 +61,9 @@ push: ## Push to remote location
 	@git push origin main
 
 save:
-	$(MAKE) -f "$(DEVTOOLS_MAKEFILE)" add
-	$(MAKE) -f "$(DEVTOOLS_MAKEFILE)" commit $(arg1)
-	$(MAKE) -f "$(DEVTOOLS_MAKEFILE)" push
+	@$(MAKE) -f "$(DEVTOOLS_MAKEFILE)" add
+	@$(MAKE) -f "$(DEVTOOLS_MAKEFILE)" commit "$(arg1)"
+	@$(MAKE) -f "$(DEVTOOLS_MAKEFILE)" push
 	
 	
 #### JS TOOLS

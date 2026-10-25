@@ -38,16 +38,35 @@ install: ## Install a package using the appropriate tool (py or js)
 		exit 1; \
 	fi
 
+uninstall: ## Uninstall a package using the appropriate tool (py or js)
+	@if [ -f pyproject.toml ]; then \
+		$(MAKE) -f "$(DEVTOOLS_MAKEFILE)" uninstall-py arg1="$(arg1)"; \
+	elif [ -f package.json ]; then \
+		$(MAKE) -f "$(DEVTOOLS_MAKEFILE)" uninstall-js arg1="$(arg1)"; \
+	else \
+		echo "Error: no pyproject.toml or package.json found in the current directory."; \
+		exit 1; \
+	fi
+
 create: ## Give choice to create something
 	@"$(DEVTOOLS_BIN)/create.sh"
 
-commit: ## 
+add: ## Acknowledge all changes in current dir
+	@git add .
+
+commit: ## Validate changes
 	@git commit -m "$(arg1)"
+
+push: ##
+	@git push origin main
 
 #### JS TOOLS
 
-install-npm: ## Install a package with npm
+install-js: ## Install a package in a js folder
 	@npm install $(arg1)
+
+uninstall-js: ## Uninstall a package in a js folder
+	@npm uninstall $(arg1)
 
 create-project-sveltekit: ## Create a Sveltekit project in the current directory
 	@npx sv create .

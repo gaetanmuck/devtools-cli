@@ -57,9 +57,15 @@ add: ## Acknowledge all changes in current dir
 commit: ## Validate changes
 	@git commit -m "$(arg1)"
 
-push: ##
+push: ## Push to remote location
 	@git push origin main
 
+save:
+	$(MAKE) -f "$(DEVTOOLS_MAKEFILE)" add
+	$(MAKE) -f "$(DEVTOOLS_MAKEFILE)" commit $(arg1)
+	$(MAKE) -f "$(DEVTOOLS_MAKEFILE)" push
+	
+	
 #### JS TOOLS
 
 install-js: ## Install a package in a js folder

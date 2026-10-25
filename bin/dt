@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+
+# Global Devtools accessor
+
+set -euo pipefail
+
+DEVTOOLS_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+MAKEFILE="$DEVTOOLS_DIR/Makefile"
+
+if [[ $# -eq 0 ]]; then
+    set -- help # Replace positional arguments with single argument "help"
+fi
+
+command="$1"
+shift # Remove first positional argument
+
+args=()
+for i in "$@"; do
+    args+=("arg$(( ${#args[@]} + 1 ))=$i")
+done
+
+if [[ ${#args[@]} -eq 0 ]]; then
+    exec make -f "$MAKEFILE" "$command"
+else
+    exec make -f "$MAKEFILE" "$command" "${args[@]}"
+fi

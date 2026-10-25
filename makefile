@@ -60,9 +60,9 @@ commit: ## Validate changes
 push: ## Push to remote location
 	@git push origin main
 
-save:
+save: ## Add, commit, and push changes (message: arg1="...")
 	@$(MAKE) -f "$(DEVTOOLS_MAKEFILE)" add
-	@$(MAKE) -f "$(DEVTOOLS_MAKEFILE)" commit "$(arg1)"
+	@$(MAKE) -f "$(DEVTOOLS_MAKEFILE)" commit arg1="$(arg1)"
 	@$(MAKE) -f "$(DEVTOOLS_MAKEFILE)" push
 	
 	
